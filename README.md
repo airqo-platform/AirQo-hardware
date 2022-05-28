@@ -1,2 +1,1 @@
-# AirQo-hardware
-firmware code
+Slack integration
