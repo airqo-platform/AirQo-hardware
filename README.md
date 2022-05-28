@@ -1,0 +1,2 @@
+# AirQo-hardware
+firmware code
