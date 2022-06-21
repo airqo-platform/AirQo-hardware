@@ -7,6 +7,7 @@
 #include "core/eeprom_routines.h"
 #include "core/rtc_routines.h"
 const String FirebaseAuth="add here the write"; //addded upload to a firebase srealtime database first attempt towards redundancy
+
 //device parameter variables, will be updated in eeprom //
 String FIRMWARE_NAME="AIRQO_FIRMWARE_OOTS";
 String FIRMWARE_VERSION=" ";
