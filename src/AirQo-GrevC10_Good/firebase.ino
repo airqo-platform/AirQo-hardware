@@ -50,7 +50,7 @@ TinyGsmClientSecure  client(modem);
 
 void FirebaseUpload(String data)
 {
-  const String FirebaseAuth="FHhUlDab1cKWpZvDmpbUcNl3Jd3DoJkAmLTulFkJ";
+  const String FirebaseAuth=""; //removed auth key
   const char FirebaseHost[]="airqo-hardware-01-default-rtdb.firebaseio.com";
   
 //  if(!modem.isNetworkConnected())

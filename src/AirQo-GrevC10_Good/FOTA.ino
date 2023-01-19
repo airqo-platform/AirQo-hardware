@@ -5,7 +5,6 @@
 
 const char ThingspeakServer[]="api.thingspeak.com";
 const char FireBaseServer[]="firebasestorage.googleapis.com";
-
 const int FireBasePort=443;
 String resource="/v0/b/airqo-hardware-01.appspot.com/o/";
 
@@ -101,7 +100,6 @@ boolean GetFieldValue2(){
         if(client.available() == 0){
        if(DebugEnable){ Serial.println(F("connected"));} //gsm_send_serial("AT+HTTPSSL=0");
         client.println("GET /channels/"+ String(controlChannelID) +"/feeds/last.json?results=1&api_key="+ controlChannelReadKey +" HTTP/1.1");
-        //client.println("GET /channels/1694247/feeds/last.json?results=1&amp;api_key=23BLMB7RX4E3KUZB HTTP/1.1");
         //client.println("GET /channels/1694247/feeds/last.json?results=1 HTTP/1.1");
         client.println("Host: api.thingspeak.com");
         client.println(String("Content-Type: ") + "applicaton/json" );
