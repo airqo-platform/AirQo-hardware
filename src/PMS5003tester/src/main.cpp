@@ -80,3 +80,6 @@ void SamplePmSensor(PMS sensor1,PMS sensor2,uint8_t sampleCount,bool pm1_too)
     serializeJsonPretty(PmSensorData,Serial);
 }
 
+
+// could we explore the windowing function for this particular type code structure: get PM values with in 60 seconds: then carry out a cumulative 
+// averaging 
