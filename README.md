@@ -4,7 +4,7 @@ The AirQo air qaulity monitoring device is an IoT connected device that provides
 ## Hardware design
 The device is currently designed around an [Atmega2560](https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/ATmega640-1280-1281-2560-2561-Datasheet-DS40002211A.pdf) microcontroller, that hosts the device firmware.
 ### block diagram 
-![block diagram](docs/images/block%20diagram.PNG)
+![block diagram](docs/images/blockDiagram.PNG)
 ### Sensors
 *Particulate matter sensors [Plantower Pms5003]()
 
