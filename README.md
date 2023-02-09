@@ -7,9 +7,13 @@ The device is currently designed around an [Atmega2560](https://ww1.microchip.co
 (https://drive.google.com/file/d/12EIbsMi5HRd4mX6RLyXkjsDdcvxmGoht/view?usp=sharing)
 ### Sensors
 *Particulate matter sensors [Plantower Pms5003]()
+
 *Environmenatal sensors     [BME280](),[SHT25]()
+
 *GPS                        [NEO6-GPS-module]()
+
 *Communication              [Sim800l-GSM-GPRS]()
+
 ### CAD tools
 list of tolls used to design the airqo monitor
 pcb tools, 3d tools, links to design files here on github
