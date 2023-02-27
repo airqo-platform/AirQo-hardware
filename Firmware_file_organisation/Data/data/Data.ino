@@ -4,6 +4,7 @@
 3. FoTa Updates: Such as firebase, file structure, upload and download processes, device identification
 4. Memory management 
 5. Local Storage
+*/
 
 void setup() {
   // put your setup code here, to run once:
