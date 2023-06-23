@@ -27,7 +27,7 @@ void samplePmSensor(PMS sensor1,PMS sensor2,uint8_t sampleCount)
       failReadCount++;
       if(failReadCount>=5)
       {
-        samples=60;
+        samples=sampleCount; //exit the loop 
       }
     }
     if(sensor2.readUntil(data))
@@ -42,7 +42,7 @@ void samplePmSensor(PMS sensor1,PMS sensor2,uint8_t sampleCount)
       failReadCount++;
       if(failReadCount>=5)
       {
-        samples=60;
+        samples=sampleCount; 
       }
     }
   }
