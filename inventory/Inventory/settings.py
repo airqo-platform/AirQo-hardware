@@ -163,13 +163,13 @@ LOGIN_URL = 'login'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_FROM = 'gibsonoluka7@gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'gibsonoluka7@gmail.com'
+EMAIL_FROM = config("EMAIL_FROM")
+EMAIL_PORT = config("EMAIL_PORT", cast=int)
+EMAIL_USE_TLS = config("EMAIL_USE_TLS", cast=bool)
+EMAIL_HOST_USER = config("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD =config("EMAIL_HOST_PASSWORD")
-DEFAULT_FROM_EMAIL = 'gibsonoluka7@gmail.com'
-PASSWORD_RESET_TIMEOUT = 14400
+DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")
+PASSWORD_RESET_TIMEOUT = config("PASSWORD_RESET_TIMEOUT", cast=int)
 
 
 # Default primary key field type
