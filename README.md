@@ -2,7 +2,7 @@
 The AirQo air qaulity monitoring device is an IoT connected device that provides realtime measurement of particualte matter concetrations and environmental readings (atmospheric pressure, relative humidity and temperature). the devices is powered by a Li-ion battery and connects to the iinternet over a 2g GSM network.
 ## Folder Structure
 -[**Firmware**](./firmware)
-    -Contains the various firmware projects for AirQo hardware, specific to different build environments.
+    -Contains the various firmware projects for AirQo hardware, specific to different build environments
 -[**Hardware**](./hardware)
     -Contains the hardware designs for AirQo hardware, 3d modesl for 3d printing, Schematic and PCB designs
 -[**docs**](./docs)
