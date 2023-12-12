@@ -1,0 +1,1 @@
+##this project aims to implement lorawan communication on the ATMEGA2560 MCU with  a RAK11720 connected over serial

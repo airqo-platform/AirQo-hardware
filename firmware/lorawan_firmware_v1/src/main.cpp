@@ -19,12 +19,19 @@ ERROR_LED_PIN is used to indicate device status
 */
 #define BATT_STATUS_PIN   PB5
 #define ERROR_LED_PIN     PB13
+
 #define SENSOR_1_SET_PIN  PB1
 #define SENSOR_2_SET_PIN  PB0
-#define GPS_ENABLE_PIN    PA15
 
-#define BQ724075_EN1_PIN // configuration pins for charger ic to set usb charge current
+#define GPS_ENABLE_PIN    PA15
+#define GPS_RESET_PIN     PB12
+
+#define CHARGER_EN1_PIN   PB4 // enable pin for usb charger modes en1
+#define CHARGER_EN2_PIN   PB3 // enable pin for usb charger modes en2
+
+#define SD_NSS_PIN        PA4
 #define SEALEVELPRESSURE_HPA (1013.25)
+
 const uint16_t BATTERY_CAPACITY=4300; //4300mAh batteries from 
 const uint16_t TAPER_CURRENT = 60; //current at which the charger stops chargin the battery in mA
 const uint16_t TERMINATE_VOLTAGE = 3000;  //lowest operational voltage in mV (3V)
@@ -51,7 +58,7 @@ void ScanI2c();
 void test_bme();
 void test_rak11720();
 void stringToHexString(const String& input, String& output) ;
-void sample_pm_sesnors(uint8_t sample_count);
+void sample_pm_sensors(uint8_t sample_count);
 void read_battery_stats();
 void fadeLED(int interval,int fadesCount);
 
@@ -61,14 +68,28 @@ void setup()
   pinMode(SENSOR_1_SET_PIN,OUTPUT);
   pinMode(SENSOR_2_SET_PIN,OUTPUT);
   pinMode(GPS_ENABLE_PIN,OUTPUT);
+  pinMode(CHARGER_EN1_PIN,OUTPUT);
+  pinMode(CHARGER_EN2_PIN,OUTPUT);
 
-  Serial.begin(115200);   // GPIO1, GPIO3 (TX/RX pin on ESP-12E Development Board)
-  Serial2.begin(115200);
-  Serial3.begin(115200);
-  Serial4.begin(9600);  // GPIO2 (D4 pin on ESP-12E Development Board)
-  Serial5.begin(9600);
-  Wire.begin();
-  ScanI2c();
+  digitalWrite(GPS_ENABLE_PIN,LOW); //gps is initially switched off
+  /*
+    | EN2 | EN1 |MAXIMUM INPUT CURRENT TO BATTERY CHARGER 
+    | 0   | 0   |100mA .USB100 mode
+    | 0   | 1   |500mA .USB500 mode
+    | 1   | 0   |set by an external resistor from ILIM pin to GND/vss
+    | 1   | 1   |standby (USB suspend mode)
+  */
+  digitalWrite(CHARGER_EN1_PIN,LOW); 
+  digitalWrite(CHARGER_EN2_PIN,HIGH);
+
+  Serial.begin(115200);             //debugging over usb connection 
+  Serial2.begin(115200);            //rakk11720 serial
+  Serial3.begin(9600);              //gps l80 serial port
+  Serial4.begin(9600);              //pm sensor 1 serial
+  Serial5.begin(9600);              //pm sensor 2 serial
+  Wire.begin();                     //begin 12c communcation
+  delay(5000);
+  ScanI2c();                        //scan i2c interface for sensors connected.
   if(!lipo.begin())
   {
     // If communication fails, print an error message and loop forever.
@@ -77,28 +98,41 @@ void setup()
     Serial.println("  (Battery must be plugged into Battery Babysitter!)");
     while (1) ;
   }
-  lipo.setCapacity(BATTERY_CAPACITY);
-  delay(5000);
+  lipo.setCapacity(BATTERY_CAPACITY); // battery capacity 
   test_bme();
   delay(5000);
 }
 
 void loop()
 {
-  sample_pm_sesnors(10);
-  delay(1000);
+  sample_pm_sensors(60);
+  if(Serial3.available())
+  {
+    while(Serial3.available())
+    {
+      Serial.print(char(Serial3.read()));
+    }
+    //read_battery_stats();
+    
+  }
+  test_rak11720();
+  if(millis()-previousMillis>10000)
+  {
+    read_battery_stats();
+    previousMillis=millis();
+  }
+  //delay(1000);
 }
 void read_battery_stats()
 {
   // Read battery stats from the BQ27441-G1A
-  unsigned int soc = lipo.soc();  // Read state-of-charge (%)
+  unsigned int soc = lipo.soc(FILTERED);  // Read state-of-charge (%)
   unsigned int volts = lipo.voltage(); // Read battery voltage (mV)
-  int current = lipo.current(AVG); // Read average current (mA)
+  float current = lipo.current(AVG); // Read average current (mA)
   unsigned int fullCapacity = lipo.capacity(FULL); // Read full capacity (mAh)
   unsigned int capacity = lipo.capacity(REMAIN); // Read remaining capacity (mAh)
   int power = lipo.power(); // Read average power draw (mW)
-  int health = lipo.soh(); // Read state-of-health (%)
-  // Now print out those values:
+  int health = lipo.soh(); // Read state-of-health (%) // Now print out those values:
   String toPrint = String(soc) + "% | ";
   toPrint += String(volts) + " mV | ";
   toPrint += String(current) + " mA | ";
@@ -106,8 +140,8 @@ void read_battery_stats()
   toPrint += String(fullCapacity) + " mAh | ";
   toPrint += String(power) + " mW | ";
   toPrint += String(health) + "%";
-  
   Serial.println(toPrint);
+  lipo.status();
 }
 void fadeLED(int interval,int fadesCount) 
 {
@@ -195,7 +229,7 @@ void test_rak11720()
     }
   }
 }
-void sample_pm_sesnors(uint8_t sample_count)
+void sample_pm_sensors(uint8_t sample_count)
 {
   float sensor1averagedPm1,sensor1averagedPm25,sensor1averagedPm10;
   float sensor2averagedPm1,sensor2averagedPm25,sensor2averagedPm10;
@@ -262,8 +296,8 @@ void sample_pm_sesnors(uint8_t sample_count)
   {
     Serial.println(F("Sensor read error"));
   }
-  data_payload+=String(lipo.power())+"#"+String(bme.readTemperature())+"#"+String(bme.readHumidity());
-  data_payload+="#\"";
+  data_payload+=String(lipo.power())+","+String(bme.readTemperature())+","+String(bme.readHumidity());
+  data_payload+=",\"";
   data_payload+=String(lipo.soc())+","+String(lipo.voltage())+",";
   data_payload+="\"";
   Serial.println(data_payload);
@@ -272,7 +306,6 @@ void sample_pm_sesnors(uint8_t sample_count)
   Serial.println(hex_data_payload);
   hex_data_payload="";
   data_payload="";
-
 }
 // Function to convert a string to a hex string
 void stringToHexString(const String& input, String& output) {
