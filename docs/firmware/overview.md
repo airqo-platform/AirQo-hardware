@@ -8,7 +8,7 @@ Robustly developed firmware enables efficient operation of the device to deliver
 
 ### Sensor Sampling
 
-The device obtains metrological (temperature and humidity) and other sensing parameters like particulate matter and battery voltage using different sensor modules. Parameters sampled include:
+The device obtains meteorological (temperature and humidity) and other sensing parameters like particulate matter and battery voltage using different sensor modules. Parameters sampled include:
 
 - PM2.5
 - PM10
