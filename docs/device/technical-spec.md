@@ -9,7 +9,7 @@
 | **Main Controller** | ATMEGA2560 |
 | **Storage** | 256KB built-in, expandable to 32GB with external SD-Card |
 | **RAM** | 2KB |
-| **Battery** | 3240 mAH |
+| **Battery** | 3240 mAh |
 | **Charging** | Solar panel input 5–12V · 5V USB micro input |
 | **Connectivity** | 2G GSM, Wi-Fi, LoRaWAN |
 | **Dimensions** | 147.5 × 71.5 × 7.4 mm |
