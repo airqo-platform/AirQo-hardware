@@ -25,7 +25,7 @@ Powered by either mains or solar, the device is optimized to work in settings ch
 | **Main Controller** | ATMEGA2560 |
 | **Storage** | 256KB built-in, expandable to 32GB via micro SD-Card |
 | **RAM** | 2KB |
-| **Battery** | 3240 mAH |
+| **Battery** | 3240 mAh |
 | **Charging** | Solar panel input 5–12V · 5V USB micro input |
 | **Connectivity** | 2G GSM, Wi-Fi, LoRaWAN |
 | **Dimensions** | 147.5 × 71.5 × 7.4 mm (5.8 × 2.8 × 0.3 in) |
