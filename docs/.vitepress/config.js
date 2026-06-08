@@ -32,8 +32,8 @@ export default defineConfig({
         text: 'Firmware',
         items: [
           { text: 'Overview', link: '/firmware/overview' },
-          { text: 'SD Card Organisation', link: '/firmware/sd-card' },
-          { text: 'Configuration & Flashing', link: '/firmware/configuration' },
+          { text: 'SD Card Data Organization', link: '/firmware/sd-card' },
+          { text: 'Configuration & Flashing', link: '/firmware/configuration' }
         ],
       },
       { text: 'Deployment', link: '/deployment' },
