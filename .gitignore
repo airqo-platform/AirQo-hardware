@@ -1,0 +1,12 @@
+# VitePress
+docs/node_modules/
+docs/.vitepress/cache/
+docs/.vitepress/dist/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# OS
+.DS_Store
