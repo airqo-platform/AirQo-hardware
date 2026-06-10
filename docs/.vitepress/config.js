@@ -3,7 +3,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: 'AirQo Hardware',
   description: 'Documentation for the AirQo Binos Air Quality Monitor and BAM Data Logger',
-  base: '/AirQo-hardware/',
+  base: '/AirQo-Hardware-RnD/',
 
   head: [
     ['link', { rel: 'icon', href: '/favicon.ico' }],
