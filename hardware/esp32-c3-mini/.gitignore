@@ -1,0 +1,29 @@
+# KiCad - ESP32-C3 Mini Design Files
+
+# ── Per-user local settings (not shared) ──────────────────────────────────────
+*.kicad_prl
+
+# ── Autosave & lock files ─────────────────────────────────────────────────────
+_autosave-*
+*.lck
+*.bak
+*.bak[0-9]
+*.kicad_sch-bak
+*.kicad_pcb-bak
+
+# ── KiCad backup folders ──────────────────────────────────────────────────────
+*-backups/
+
+# ── Footprint cache ───────────────────────────────────────────────────────────
+fp-info-cache
+
+# ── Generated outputs (regenerate from source) ────────────────────────────────
+# Uncomment the lines below if you prefer not to track generated files.
+# fabrication/gerbers/*
+# fabrication/bom/*
+# fabrication/assembly/*
+# !fabrication/**/.gitkeep
+
+# ── OS noise ──────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
