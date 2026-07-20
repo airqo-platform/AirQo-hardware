@@ -25,8 +25,8 @@ bool sdReady = false;
 
 // Per-field running accumulator
 struct Accum {
-  float   sum   = 0;
-  uint8_t count = 0;
+  float    sum   = 0;
+  uint16_t count = 0;
   void  add(float v)  { if (!isnan(v)) { sum += v; count++; } }
   float avg()   const { return count ? sum / count : NAN; }
   void  reset()       { sum = 0; count = 0; }
@@ -156,7 +156,8 @@ void loop() {
     if (s2ok) { a_pms2_pm1.add(s2_pm1); a_pms2_pm25.add(s2_pm25); a_pms2_pm10.add(s2_pm10); }
 
     // Print live reading as pretty JSON
-    StaticJsonDocument<768> doc;
+    StaticJsonDocument<768> doc;
+
     JsonObject dht_obj = doc["dht11"].to<JsonObject>();
     if (isnan(dht_temp)) dht_obj["temperature_c"] = nullptr; else dht_obj["temperature_c"] = dht_temp;
     if (isnan(dht_hum))  dht_obj["humidity_pct"]  = nullptr; else dht_obj["humidity_pct"]  = dht_hum;
